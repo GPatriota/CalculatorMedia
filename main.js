@@ -2,25 +2,28 @@ document.getElementById("calculate").addEventListener("click", function () {
   const name = document.getElementById("name").value;
   const grades = document.querySelectorAll("#grades .grade");
   const resultDiv = document.getElementById("result");
+  const nameClassmate = document.querySelector("#grades .name");
   let verifyInputs = false;
 
   function calculateMedia(grades) {
     let sumGrades = 0;
-    let gradePositioned = 0;
+    let gradePositioned = 1;
     resultDiv.innerHTML = "";
     const nameClassmate = document.querySelector("#grades .name");
-    nameClassmate.style.background = '';
     if (nameClassmate.value === "") {
       resultDiv.innerHTML += `<p style="color: red;">Campo nome sem preenchimento</p>`;
       nameClassmate.style.background = "red";
       verifyInputs = true;
-      gradePositioned += 1;
+    } else{
+      nameClassmate.style.background = "";
     }
+
     
+
     grades.forEach((grade) => {
       const gradeValue = parseFloat(grade.value);
-      if (isNaN(gradeValue)) {
-        resultDiv.innerHTML += `<p style="color: red;">Campo Nota ${gradePositioned} com valor inválido. Digite apenas números.</p>`;
+      if (grade.value === "") {
+        resultDiv.innerHTML += `<p style="color: red;">Campo Nota ${gradePositioned} com valor inválido. O campo deve estar preenchido.</p>`;
         grade.style.background = "red";
         verifyInputs = true;
         gradePositioned += 1;
@@ -31,14 +34,15 @@ document.getElementById("calculate").addEventListener("click", function () {
         verifyInputs = true;
         gradePositioned += 1;
         return;
-      } else if (grade.value === "") {
-        resultDiv.innerHTML += `<p style="color: red;">Campo Nota ${gradePositioned} com valor inválido. O campo deve estar preenchido.</p>`;
+      } else if (isNaN(gradeValue)) {
+        resultDiv.innerHTML += `<p style="color: red;">Campo Nota ${gradePositioned} com valor inválido. Digite apenas numeros</p>`;
         grade.style.background = "red";
         verifyInputs = true;
         gradePositioned += 1;
         return;
       }
 
+      
       grade.style.background = "";
       sumGrades += gradeValue;
       gradePositioned += 1;
@@ -46,6 +50,7 @@ document.getElementById("calculate").addEventListener("click", function () {
     return sumGrades / grades.length;
   }
 
+  
   const media = calculateMedia(grades);
 
   if (verifyInputs) {
