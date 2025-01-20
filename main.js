@@ -129,7 +129,7 @@ function removeInput(button) {
 }
 const removeButtons = document.getElementsByClassName("remove-btn");
 
-removeButtons.forEach((button) => {
+removeButtons?.forEach((button) => {
   button.addEventListener("click", function () {
     removeInput(this);
   });
