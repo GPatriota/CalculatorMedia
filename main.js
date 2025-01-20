@@ -113,12 +113,19 @@ function removeInput(button) {
   const divInput = button.parentElement;
   divInput.remove();
   const labels = document.querySelectorAll(".input-container label");
+  const inputs = document.querySelectorAll('.input-container input');
 
   labels.forEach((label) => {
     label.setAttribute("for", `grade${gradePositioned}`);
     label.textContent = `Nota ${gradePositioned}`;
     gradePositioned += 1;
   });
+
+  gradePositioned = 1;
+  inputs.forEach((input) => {
+    input.setAttribute('placeholder', `Digite a ${gradePositioned}ª nota`);
+    gradePositioned += 1;
+  })
 }
 const removeButtons = document.getElementsByClassName("remove-btn");
 
